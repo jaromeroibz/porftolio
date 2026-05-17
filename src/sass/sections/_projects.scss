@@ -47,6 +47,12 @@
       & p > a {
         color: $secondary-color;
       }
+
+      .project-ongoing {
+        cursor: default;
+        pointer-events: none;
+        opacity: 0.85;
+      }
     }
 
     &__image {
