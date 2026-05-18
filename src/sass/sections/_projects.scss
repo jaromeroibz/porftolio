@@ -63,21 +63,165 @@
         width: 100%;
         margin: 0;
       }
+    }
 
-      & .thumbnail {
-        border: none;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        transition: all 0.2s ease-out;
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
-        transition: 0.5s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
-          0.5s box-shadow,
-          0.5s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+    .project-carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      background-color: #f4f4f4;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
 
-        @include respond(phone) {
-          border: 1px solid $light-grey;
-          box-shadow: none;
-          margin-bottom: 3.2rem;
-        }
+      @include respond(phone) {
+        border: 1px solid $light-grey;
+        box-shadow: none;
+      }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    &[data-arrow-tone="light"]::before {
+      background: linear-gradient(
+        90deg,
+        rgba($dark-grey, 0.28) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba($dark-grey, 0.28) 100%
+      );
+    }
+
+    &[data-arrow-tone="dark"]::before {
+      background: linear-gradient(
+        90deg,
+        rgba($white-color, 0.35) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba($white-color, 0.35) 100%
+      );
+    }
+
+    &:hover::before,
+    &:focus-within::before {
+      opacity: 1;
+    }
+    }
+
+    .project-carousel__viewport {
+      position: relative;
+      width: 100%;
+    }
+
+    .project-carousel__track {
+      position: relative;
+      width: 100%;
+    }
+
+    .project-carousel__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+
+      &.is-active {
+        position: relative;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+    }
+
+    .project-carousel__img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .project-carousel__arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.4rem;
+      height: 4.4rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      opacity: 0;
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: opacity 0.35s ease, color 0.25s ease, transform 0.25s ease;
+
+      svg {
+        width: 2.6rem;
+        height: 2.6rem;
+        stroke: currentColor;
+        stroke-width: 1;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+      }
+
+      &--prev {
+        left: 0.8rem;
+      }
+
+      &--next {
+        right: 0.8rem;
+      }
+
+      &:hover,
+      &:focus-visible {
+        outline: none;
+      }
+
+      &:focus-visible {
+        opacity: 1;
+      }
+    }
+
+    &[data-arrow-tone="light"] .project-carousel__arrow {
+      color: rgba($white-color, 0.88);
+
+      &:hover,
+      &:focus-visible {
+        color: $white-color;
+      }
+    }
+
+    &[data-arrow-tone="dark"] .project-carousel__arrow {
+      color: rgba($dark-blue-text, 0.82);
+
+      &:hover,
+      &:focus-visible {
+        color: $dark-blue-text;
+      }
+
+      svg {
+        filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.35));
+      }
+    }
+
+    .project-carousel:hover .project-carousel__arrow,
+    .project-carousel:focus-within .project-carousel__arrow {
+      opacity: 1;
+    }
+
+    @media (hover: none) {
+      .project-carousel__arrow {
+        opacity: 0.55;
       }
     }
   }
