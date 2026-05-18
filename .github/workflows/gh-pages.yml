@@ -29,9 +29,12 @@ jobs:
       - name: Install project
         run: npm install
 
-      # Build project
+      # Build project (relative public-url for GitHub Pages subpath)
       - name: Build project
-        run: npm run-script build
+        run: npm run build
+
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
